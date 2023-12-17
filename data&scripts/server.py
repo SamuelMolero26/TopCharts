@@ -1,3 +1,6 @@
+#server set up so data can be transformed to json and thus
+# be pull into the extension
+
 from flask import Flask , jsonify
 
 from fetch import get_genres
