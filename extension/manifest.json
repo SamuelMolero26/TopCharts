@@ -3,6 +3,9 @@
     "name": "TopCharts",
     "description": "Base Level Extension",
     "version": "1.0",
+    "background": {
+        "service_worker": "background.js"
+    },
     "action": {
       "default_popup": "Chart.html",
       "default_icon": "chart.jpg"
