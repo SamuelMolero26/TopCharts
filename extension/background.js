@@ -4,7 +4,7 @@ let data; //let because it is withnt the same scope
 //withint the same block 
  //---uwu:--
 
-fetch('http://localhost:5000/data&scripts')
+fetch('http://localhost:5000/scripts')
     .then(response => response.json())
     .then(fetchedData => {
         data = fetchedData;

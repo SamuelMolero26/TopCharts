@@ -7,7 +7,7 @@ from fetch import get_genres
 
 app = Flask(__name__)
 
-@app.route('/data&scripts', methods =['GET'])
+@app.route('/scripts', methods =['GET'])
 def get_data():
     data = get_genres()
     return jsonify(data)
