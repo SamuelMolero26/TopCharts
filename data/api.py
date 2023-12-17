@@ -34,4 +34,3 @@ def get_auth_header(token):
 
 
 tokens = get_token()
-print(tokens)
