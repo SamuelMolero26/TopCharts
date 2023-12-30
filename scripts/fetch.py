@@ -1,33 +1,44 @@
-import os
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-from api import get_token
 
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
+from api import get_token, get_genre, get_auth_header
+from requests import post, get
+import json
 
-def get_genres():
-    tokens = get_token()
+token = get_token()
+genres = get_genre(token)
 
-    if tokens:
-        print("Token read")
-        client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
-        sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-        print('sp passed')
-        
-        genres = sp.recommendation_genre_seeds()["genres"]
-        
-        for genre in genres:
-            results = sp.recommendations(seed_genres=[genre], limit=10)
 
-            #populate the tracks by popularity
-            tracks = sorted(results['tracks'], key=lambda track: track['popularity'], reverse=True)
+def top_artist_genre(token, genre):
+    url = f"https://api.spotify.com/v1/search"
+    header = get_auth_header(token)
+    query = f"?q={genre}&type=artist&limit=1"
+
+    query_url = url + query
+    result = get(query_url, headers=header)
+    json_result = json.loads(result.content)
+
+    artists = json_result.get("artist",{}).get("items", [])
+
+    if artists:
+        artist = artists[0]
+        artist_name = artist.get("name", "")
+        artist_genres = artist.get("genres", [])
+        return {"name": artist_name, "genres": artist_genres}
+
+    else:
+        print(f"No artists found for genre: {genre}")
+        return None
 
     
-            top_track = tracks[0]
-            print(f"Top track for {genre}: {top_track['name']} by {top_track['artists'][0]['name']}")
-            
-get_genres()
+print(top_artist_genre(token,genres))
+
+
+     
+
+    
+
+
+
+
 
 
 

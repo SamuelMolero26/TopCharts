@@ -4,6 +4,7 @@
 from flask import Flask , jsonify
 from flask_cors import CORS
 from fetch import get_genres
+from fetch import get_genres
 
 app = Flask(__name__)
 CORS(app)

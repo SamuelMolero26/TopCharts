@@ -18,7 +18,7 @@ let data; //let because it is withnt the same scope
         console.error('An error occurred:', error);
  });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sendResponse) => {
     if (request.message === 'getData') {
         sendResponse(data);
     }

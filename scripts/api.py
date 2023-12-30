@@ -1,7 +1,7 @@
 from  dotenv import load_dotenv
 import os
 import base64
-from requests import post
+from requests import post, get
 import json
 
 
@@ -13,7 +13,7 @@ client_secret = os.getenv("CLIENT_SECRET")
 # print(client_id,client_secret)
 
 def get_token():
-    auth_string = client_id +  ":" + client_secret
+    auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8") 
     auth_base64 = str(base64.b64encode(auth_bytes),"utf-8")
 
@@ -32,6 +32,16 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-# tokens = get_token()
-# # print(get_auth_header(tokens))
+def get_genre(token):
+    url = "https://api.spotify.com/v1/recommendations/available-genre-seeds"
+    headers = get_auth_header(token)
+    response = get(url, headers=headers)
+    json_response = json.loads(response.content)
+    genres = json_response["genres"]
+
+    return genres
+
+tokens = get_token()
+
 # print(tokens)
+# print(get_genre(tokens))
