@@ -12,6 +12,7 @@ client_secret = os.getenv("CLIENT_SECRET")
 
 # print(client_id,client_secret)
 
+#token confimation
 def get_token():
     auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8") 
@@ -29,19 +30,35 @@ def get_token():
     token = json_result["access_token"]
     return token
 
+#Needed authentication
+
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-def get_genre(token):
-    url = "https://api.spotify.com/v1/recommendations/available-genre-seeds"
+
+
+#gather the genere I needss, pulls from given url -- all genres in spotify
+# def get_genre(token):
+#     url = "https://api.spotify.com/v1/recommendations/available-genre-seeds"
+#     headers = get_auth_header(token)
+#     response = get(url, headers=headers)
+#     json_response = json.loads(response.content)
+#     genres = json_response["genres"]
+
+#     return genres
+
+def get_market(token):
+    url = "https://api.spotify.com/v1/markets"
     headers = get_auth_header(token)
     response = get(url, headers=headers)
     json_response = json.loads(response.content)
-    genres = json_response["genres"]
+    markets = json_response["markets"]
 
-    return genres
+    return markets
 
 tokens = get_token()
+print(get_market(tokens))
 
-# print(tokens)
+print(tokens)
+print(get_auth_header(tokens))
 # print(get_genre(tokens))
