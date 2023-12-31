@@ -41,7 +41,7 @@ def artist_tracks(token, artist, market):
         print("Empty")  
 
     track_library = []  # Create an empty list to store track information
-    market_track = {"Market" : market}
+    market_track = {"Market" : market, "Track Info": ""}
     for track in tracks:
         track_name = track["name"]
         track_popularity = track["popularity"]
@@ -56,8 +56,8 @@ def artist_tracks(token, artist, market):
     
         track_library.append(track_info)  # Append the track information to the library
 
-        market_track["Track Info"] = track_library  # Append track_library to market_track
-        # track_library.append(market_track)  # Append market_track to track_library
+    market_track["Track Info"] = track_library  # Append track_library to market_track
+    # track_library.append(market_track)  # Append market_track to track_library
 
     
     return market_track
