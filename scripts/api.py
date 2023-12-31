@@ -56,9 +56,9 @@ def get_market(token):
 
     return markets
 
-tokens = get_token()
-print(get_market(tokens))
+# tokens = get_token()
+# print(get_market(tokens))
 
-print(tokens)
-print(get_auth_header(tokens))
-# print(get_genre(tokens))
+# print(tokens)
+# print(get_auth_header(tokens))
+# # print(get_genre(tokens))

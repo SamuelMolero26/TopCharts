@@ -3,15 +3,17 @@
     "name": "TopCharts",
     "description": "Base Level Extension",
     "version": "1.0",
+    "action": {
+        "default_popup": "Chart.html",
+        "default_icon": "chart.jpg"
+    },
     "background": {
         "service_worker": "background.js"
-
     },
-    "action": {
-      "default_popup": "Chart.html",
-      "default_icon": "chart.jpg"
-    },
-    "host_permissions": [
-        "http://localhost:5000/scripts"
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["popup.js"]
+        }
     ]
 }
