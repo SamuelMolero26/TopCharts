@@ -47,11 +47,13 @@ def artist_tracks(token, artist, market):
         track_popularity = track["popularity"]
         album_name = track["album"]["name"]  # Retrieve the album name
         album_cover_image = track["album"]["images"][0]["url"]  # Retrieve the album cover image
+        web_link = track['uri'].replace('spotify:track:', 'https://open.spotify.com/track/')
         track_info = {
             "Track Name": track_name,
             "Popularity": track_popularity,
             "Album Name": album_name,  # Add album name to track information
-            "Cover": album_cover_image
+            "Cover": album_cover_image,
+            "Song URI" : web_link
         }
     
         track_library.append(track_info)  # Append the track information to the library
@@ -63,6 +65,8 @@ def artist_tracks(token, artist, market):
     return market_track
 
 
+id = artist_id(token,"Clairo")
 
+print(artist_tracks(token,id, "VE"))
 
 
