@@ -2,11 +2,12 @@ var port = chrome.runtime.connect({ name: 'popup-to-background-connection' });
 
 var button = document.getElementById('fetchButton');
 
-var form = document.getElementById('artistForm');
+var form;
 
 var selectedMarket;
 
 window.onload = function() {
+    form = document.getElementById('artistForm');
     port.postMessage({ message: 'fetchMarkets' });
     fetch('http://127.0.0.1:5000/markets')
         .then(response => response.json())
@@ -20,6 +21,15 @@ window.onload = function() {
                 marketDropdown.appendChild(option);
             });
         });
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var artistName = document.getElementById('artistName').value;
+        var selectedMarket = document.getElementById('marketDropdown').value;
+    
+        port.postMessage({ message: 'fetchData', artist_name: artistName, market: selectedMarket });
+    });
+    
 };
 
 //-----------------drop down options/menu -----------------------
@@ -37,14 +47,6 @@ port.onMessage.addListener(function(response) {
 
 });
 
-
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    var artistName = document.getElementById('artistName').value;
-    var selectedMarket = document.getElementById('marketDropdown').value;
-
-    port.postMessage({ message: 'fetchData', artist_name: artistName, market: selectedMarket });
-});
 
 
 

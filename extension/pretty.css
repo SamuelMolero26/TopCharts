@@ -1,12 +1,30 @@
 .album-image {
     transition: transform 0.4s ease-in-out;
     padding: 10px;
-
-
-
+    
 }
+
 
 .album-image:hover {
     transform: scale(1.1);
     display: block;
 }
+
+.dropdown {
+    max-width: 13em;
+    width: 100%;
+    font-size: 18px;
+    border: None;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding: 0.7em 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    font-weight: 800;
+    text-align: center;
+    background-color: #a64ecf;
+}
+
+

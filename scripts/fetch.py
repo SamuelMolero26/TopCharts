@@ -65,8 +65,3 @@ def artist_tracks(token, artist, market):
     return market_track
 
 
-id = artist_id(token,"Clairo")
-
-print(artist_tracks(token,id, "VE"))
-
-
