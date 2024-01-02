@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>My Extension</title>
-    <style>
-        /* Add your CSS here */
-    </style>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="pretty.css">
+
 </head>
+
 <body>
+
     <h1>Enter Artist Name</h1>
-    <form id ="artistForm">
-      <select id = "market"></select>
-      <input type="text" id="artistName">
-      <button id="fetchButton">Fetch Data</button>
+
+    <form id="artistForm">
+        <p>Enter Artist Name: </p>
+        <input type="text" id="artistName">
+        <button id="fetchButton">Fetch Data</button>
+        <p>Select Market</p>
+        <select id="marketDropdown">
+            <!-- Dropdown options will be added here by JavaScript -->
+        </select>
     </form>
-    
+
     <div id="dataDisplay"></div>
 
     <script src="popup.js"></script>
 </body>
+
 </html>

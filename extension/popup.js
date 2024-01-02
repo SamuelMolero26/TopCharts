@@ -4,6 +4,7 @@ var button = document.getElementById('fetchButton');
 
 var form = document.getElementById('artistForm');
 
+var selectedMarket;
 
 window.onload = function() {
     port.postMessage({ message: 'fetchMarkets' });
@@ -11,7 +12,7 @@ window.onload = function() {
         .then(response => response.json())
         .then(data => {
             // Populate the dropdown with the available markets
-            var marketDropdown = document.getElementById('market');
+            var marketDropdown = document.getElementById('marketDropdown');
             data.forEach(function(market) {
                 var option = document.createElement('option');
                 option.value = market;
@@ -21,10 +22,11 @@ window.onload = function() {
         });
 };
 
+//-----------------drop down options/menu -----------------------
 port.onMessage.addListener(function(response) {
 
     if(response.message == 'markets') {
-        var marketDropdown = document.getElementById('market');
+        var marketDropdown = document.querySelector('.dropdown-menu');
         response.data.forEach(function(market) {
             var option = document.createElement('option');
             option.value = market;
@@ -39,13 +41,10 @@ port.onMessage.addListener(function(response) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     var artistName = document.getElementById('artistName').value;
-    var marketDropdown = document.getElementById('market');
-    var selectedMarket =  marketDropdown.options[marketDropdown.selectedIndex].value;
+    var selectedMarket = document.getElementById('marketDropdown').value;
 
     port.postMessage({ message: 'fetchData', artist_name: artistName, market: selectedMarket });
-
 });
-
 
 
 
@@ -64,9 +63,10 @@ port.onMessage.addListener(function(response) {
             console.log(track);
             var img = document.createElement('img');
             img.src = track.Cover;
+            img.className = 'album-image';
             img.alt = track['Track Name'];
-            img.width = 50;
-            img.height = 50;
+            img.width = 70;
+            img.height = 70;
 
             var title = document.createElement('p');
             title.textContent = 'Title: ' + track['Track Name'];
@@ -77,7 +77,14 @@ port.onMessage.addListener(function(response) {
             var popularity = document.createElement('p');
             popularity.textContent = 'Popularity: ' + track.Popularity;
 
-            dataDisplay.appendChild(img);  
+            var tracklink = document.createElement('a');
+            tracklink.href = track['Song URI'].replace('spotify:track:', 'https://open.spotify.com/track/');
+            tracklink.target = '_blank';
+
+            tracklink.appendChild(img);
+
+            dataDisplay.appendChild(tracklink);
+            //dataDisplay.appendChild(img);  
             dataDisplay.appendChild(title);  
             dataDisplay.appendChild(albumName);  
             dataDisplay.appendChild(popularity);
